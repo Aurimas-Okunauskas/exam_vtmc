@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.CommonPage;
 import page.Mp3PlayersPage;
@@ -26,18 +27,31 @@ public class Mp3PlayerTest extends BaseTest {
         commonPage.clickMp3Players();
         commonPage.clickShowAllMp3Players();
         waitForJS(driver);
-        assertTrue(driver.findElement(By.xpath("//div[@class = 'product-thumb' and .//a[text() ='iPod Classic']]")).isDisplayed());
-        driver.findElement(By.xpath("//div[@class = 'product-thumb' and .//a[text() ='iPod Classic']]//h4/a")).click();
-        driver.findElement(By.xpath("//*[@data-original-title = 'Add to Wish List']")).click();
+        assertTrue(mp3PlayersPage.findProduct("iPod Classic").isDisplayed());
+        mp3PlayersPage.clickOnProduct("iPod Classic");
+        mp3PlayersPage.clickAddToWishlist();
         waitForJS(driver);
-        assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'alert')]//a[contains(text(), 'iPod Classic')]")).isDisplayed());
+        assertTrue(mp3PlayersPage.isWarningDisplayed());
         driver.navigate().refresh();
         mp3PlayersPage.clickButtonAddToCart();
         waitForJS(driver);
-        assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'alert')]//a[contains(text(), 'iPod Classic')]")).isDisplayed());
+        assertTrue(mp3PlayersPage.isWarningDisplayed());
+
         Assert.assertTrue(mp3PlayersPage.printNumberOfItemsInCart().contains("1 item"));
 
 
+
+
     }
+
+    @DataProvider
+    public Object[][] parameters() {
+        return new Object[][]{
+                {"iPod Classic"}
+
+        }
+
+    }
+
 
 }
