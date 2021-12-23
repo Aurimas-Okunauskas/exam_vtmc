@@ -15,11 +15,18 @@ public class CommonPage extends AbstractPage {
     @FindBy(linkText = "Show All MP3 Players")
     private WebElement buttonShowAllMp3Players;
 
+    @FindBy (id = "cart-total")
+    private WebElement buttonCartTotal;
+
     public void clickMp3Players() {
         buttonMP3Players.click();
     }
 
     public void clickShowAllMp3Players() {
         buttonShowAllMp3Players.click();
+    }
+
+    public String printNumberOfItemsInCart() {
+        return buttonCartTotal.getText();
     }
 }
