@@ -11,31 +11,17 @@ public class Mp3PlayersPage extends CommonPage {
     }
 
     // buttons
-    @FindBy(id = "list-view")
-    private WebElement buttonListView;
 
-    @FindBy(id = "button-cart")
-    private WebElement buttonAddToCart;
 
     public WebElement findProduct(String product) {
-        return driver.findElement(By.xpath("//div[@class = 'product-thumb' and .//a[text() ='" + product +"']]"));
+        return driver.findElement(By.xpath("//div[@class = 'product-thumb' and .//a[text() ='" + product +"']]//h4/a"));
     }
 
     public void clickOnProduct(String product) {
         driver.findElement(By.xpath("//div[@class = 'product-thumb' and .//a[text() ='" + product + "']]//h4/a")).click();
     }
 
-    public void clickAddToWishlist() {
-        driver.findElement(By.xpath("//*[@data-original-title = 'Add to Wish List']")).click();
-    }
 
-    public void clickButtonAddToCart() {
-        buttonAddToCart.click();
-    }
-
-    public boolean isWarningDisplayed() {
-        return driver.findElement(By.xpath("//div[contains(@class, 'alert')]//a[contains(text(), 'iPod Classic')]")).isDisplayed();
-    }
 
 
 }

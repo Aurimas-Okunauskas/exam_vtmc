@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import page.CommonPage;
 import page.Mp3PlayersPage;
+import page.ProductPage;
 
 import java.time.Duration;
 
@@ -17,29 +18,27 @@ import static util.WaitForJS.waitForJS;
 
 public class Mp3PlayerTest extends BaseTest {
 
-    @Test
-    public void mp3PlayerTest() {
+    @Test (dataProvider = "parameters")
+    public void mp3PlayerTest(String product) {
         CommonPage commonPage = new CommonPage(driver);
         Mp3PlayersPage mp3PlayersPage = new Mp3PlayersPage(driver);
+        ProductPage productPage = new ProductPage(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 
         commonPage.clickMp3Players();
         commonPage.clickShowAllMp3Players();
+        assertTrue(mp3PlayersPage.findProduct(product).isDisplayed());
+        mp3PlayersPage.clickOnProduct(product);
+        productPage.clickAddToWishlist();
         waitForJS(driver);
-        assertTrue(mp3PlayersPage.findProduct("iPod Classic").isDisplayed());
-        mp3PlayersPage.clickOnProduct("iPod Classic");
-        mp3PlayersPage.clickAddToWishlist();
-        waitForJS(driver);
-        assertTrue(mp3PlayersPage.isWarningDisplayed());
+        assertTrue(productPage.isWarningDisplayed(product));
         driver.navigate().refresh();
-        mp3PlayersPage.clickButtonAddToCart();
+        productPage.clickButtonAddToCart();
         waitForJS(driver);
-        assertTrue(mp3PlayersPage.isWarningDisplayed());
+        assertTrue(productPage.isWarningDisplayed(product));
 
         Assert.assertTrue(mp3PlayersPage.printNumberOfItemsInCart().contains("1 item"));
-
-
 
 
     }
@@ -47,9 +46,12 @@ public class Mp3PlayerTest extends BaseTest {
     @DataProvider
     public Object[][] parameters() {
         return new Object[][]{
-                {"iPod Classic"}
+                {"iPod Classic"},
+                {"iPod Nano"},
+                {"iPod Touch"},
+                {"My player"},
 
-        }
+        };
 
     }
 
