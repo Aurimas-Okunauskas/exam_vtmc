@@ -24,7 +24,7 @@ public class ApiTest extends BaseApiTest {
 
         HashMap user = new HashMap<>();
         user.put("name", "Billy Bob");
-        user.put("email", randomAlphabetic(10) + "@rajesh.com");
+        user.put("email", randomAlphabetic(10) + "@billy.com");
         user.put("gender", "male");
         user.put("status", "active");
 
@@ -38,27 +38,40 @@ public class ApiTest extends BaseApiTest {
                 post(usersEndpoint).
         then().
                 assertThat().
-                statusCode(200).
+                body("code", is(201)).
                 extract().
                 path("data.id");
 
         HashMap newPost = new HashMap<>();
-        user.put("user_id", userID);
-        user.put("title", "Hello");
-        user.put("body", randomAlphabetic(10));
+
+        newPost.put("user_id", userID);
+        newPost.put("title", "Hello");
+        newPost.put("body", randomAlphabetic(10));
 
 
         // CREATE NEW POST //
 
-        given().
+       int postID = given().
                 spec(reqSpec).
                 body(newPost).
         when().
                 post(postsEndpoint).
         then().
                 assertThat().
-                body("code", is("200"));
+                body("code", is("201")).
+               extract().
+               path()
 
+        // GET NEWLY CREATED POST //
+
+        given().
+                spec(reqSpec).
+                pathParams("id", "1303").
+        when().
+                get(postsEndpoint).
+        then().
+                assertThat().
+                body("c")
 
     }
 
