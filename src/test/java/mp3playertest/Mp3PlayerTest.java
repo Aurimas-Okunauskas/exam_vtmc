@@ -1,8 +1,6 @@
 package mp3playertest;
 
 import basetest.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -18,13 +16,11 @@ import static util.WaitForJS.waitForJS;
 
 public class Mp3PlayerTest extends BaseTest {
 
-    @Test (dataProvider = "parameters")
+    @Test(dataProvider = "parameters")
     public void mp3PlayerTest(String product) {
         CommonPage commonPage = new CommonPage(driver);
         Mp3PlayersPage mp3PlayersPage = new Mp3PlayersPage(driver);
         ProductPage productPage = new ProductPage(driver);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
 
         commonPage.clickMp3Players();
         commonPage.clickShowAllMp3Players();
@@ -37,9 +33,7 @@ public class Mp3PlayerTest extends BaseTest {
         productPage.clickButtonAddToCart();
         waitForJS(driver);
         assertTrue(productPage.isWarningDisplayed(product));
-
         Assert.assertTrue(mp3PlayersPage.printNumberOfItemsInCart().contains("1 item"));
-
 
     }
 
