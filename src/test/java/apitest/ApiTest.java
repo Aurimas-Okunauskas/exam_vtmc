@@ -51,16 +51,15 @@ public class ApiTest extends BaseApiTest {
 
         // CREATE NEW POST //
 
-       int postID = given().
+      given().
                 spec(reqSpec).
                 body(newPost).
         when().
                 post(postsEndpoint).
         then().
                 assertThat().
-                body("code", is("201")).
-               extract().
-               path()
+                body("code", is("201"));
+
 
         // GET NEWLY CREATED POST //
 
@@ -70,8 +69,8 @@ public class ApiTest extends BaseApiTest {
         when().
                 get(postsEndpoint).
         then().
-                assertThat().
-                body("c")
+                assertThat();
+
 
     }
 
