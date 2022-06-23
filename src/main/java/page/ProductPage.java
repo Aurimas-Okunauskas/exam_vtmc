@@ -17,7 +17,7 @@ public class ProductPage extends CommonPage{
     private WebElement buttonAddToCart;
 
     public void clickAddToWishlist() {
-        driver.findElement(By.xpath("//*[@data-bs-original-title = 'Add to Wish List']")).click();
+        driver.findElement(By.xpath("//*[@data-original-title = 'Add to Wish List']")).click();
     }
 
     public void clickButtonAddToCart() {

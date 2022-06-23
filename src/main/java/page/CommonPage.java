@@ -15,7 +15,7 @@ public class CommonPage extends AbstractPage {
     @FindBy(linkText = "Show All MP3 Players")
     private WebElement buttonShowAllMp3Players;
 
-    @FindBy (xpath = "//*[@id=\"header-cart\"]/div/button")
+    @FindBy (id = "cart-total")
     private WebElement buttonCartTotal;
 
     public void clickMp3Players() {
