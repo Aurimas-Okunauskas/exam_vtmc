@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
-
 public class CreateUserPage extends AbstractPage {
     public CreateUserPage(WebDriver driver) {
         super(driver);
@@ -27,6 +25,11 @@ public class CreateUserPage extends AbstractPage {
     @FindBy(id = "passwordConfirm.errors")
     private WebElement msgPwdConfirmError;
 
+    @FindBy(id = "password.errors")
+    private WebElement msgPwdError;
+
+    @FindBy(id = "username.errors")
+    private WebElement msgUsernameError;
 
 
     // actions
@@ -46,8 +49,24 @@ public class CreateUserPage extends AbstractPage {
         btnSubmit.click();
     }
 
-    public boolean isErrorDisplayed() {
+    public boolean isPwdConfirmErrorDisplayed() {
         return msgPwdConfirmError.isDisplayed();
+    }
+
+    public boolean isPwdErrorDisplayed() {
+        return msgPwdError.isDisplayed();
+    }
+
+    public String getPwdErrorText() {
+        return msgPwdError.getText();
+    }
+
+    public boolean isUsernameErrorDisplayed() {
+        return msgUsernameError.isDisplayed();
+    }
+
+    public String getUsernameErrorText() {
+        return msgUsernameError.getText();
     }
 
     public void fillFormClickSubmit(String username, String pwd, String repeatPwd) {
@@ -57,4 +76,9 @@ public class CreateUserPage extends AbstractPage {
         clickSubmit();
     }
 
+    public void clearFields() {
+        fieldUsername.clear();
+        fieldPassword.clear();
+        fieldPasswordConfirm.clear();
+    }
 }

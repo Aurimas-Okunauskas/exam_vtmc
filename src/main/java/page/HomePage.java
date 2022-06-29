@@ -5,26 +5,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
-
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
     // elements
-    @FindBy(linkText = "Sukurti naują paskyrą")
+    @FindBy(partialLinkText = "Sukurti")
     private WebElement buttonSukurtiPaskyra;
-
-    @FindBy(linkText = "Prisijungti")
+    @FindBy(xpath = "//button[@type='submit']")
     private WebElement buttonPrisijungti;
-
     @FindBy(xpath = "//*[@name='username']")
     private WebElement fieldUsername;
-
     @FindBy(xpath = "//*[@name='password']")
     private WebElement fieldPassword;
+    @FindBy(xpath = "//span[contains(text(), 'prisijungimo vardas ir/ arba')]")
+    private WebElement msgIncorrectCredentialsError;
 
     // actions
-
     public void clickButtonSukurtiPaskyra() {
         buttonSukurtiPaskyra.click();
     }
@@ -37,8 +34,11 @@ public class HomePage extends AbstractPage {
         fieldUsername.sendKeys(username);
     }
 
-    public void enterPasswoerd(String pwd) {
-        fieldUsername.sendKeys(pwd);
+    public void enterPassword(String pwd) {
+        fieldPassword.sendKeys(pwd);
     }
 
+    public boolean isIncorrectCredentialsErrorDisplayed() {
+        return msgIncorrectCredentialsError.isDisplayed();
+    }
 }
