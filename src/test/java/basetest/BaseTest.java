@@ -20,7 +20,7 @@ public class BaseTest {
     protected void getPage() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://demo.opencart.com/");
+        driver.get("http://localhost:8080/prisijungti");
     }
 
     @AfterMethod
